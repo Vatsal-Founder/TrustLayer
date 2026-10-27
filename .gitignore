@@ -1,0 +1,7 @@
+.env
+__pycache__/
+*.pyc
+trust_layer.db
+.venv/
+node_modules/
+.next/

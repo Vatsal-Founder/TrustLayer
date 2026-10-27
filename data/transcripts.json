@@ -1,0 +1,272 @@
+[
+  {
+    "id": "t01",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "I was charged $199 this month but I downgraded to the $49 plan three weeks ago. This is really frustrating, I budgeted for the lower amount."},
+      {"role": "agent", "message": "I completely understand the frustration, seeing a charge you didn't expect is stressful, especially when you'd already planned around the lower price. I've checked your account: the downgrade was scheduled for your next billing cycle, which starts November 1st, so this month's invoice reflects the old plan one last time. Per our billing policy, plan changes take effect at the start of the next cycle rather than immediately, to avoid prorating mid-cycle usage. Starting November 1st you'll be billed $49/month going forward, and no action is needed on your end."},
+      {"role": "customer", "message": "Oh, that makes sense, I just didn't realize it worked that way. Thanks for explaining."},
+      {"role": "agent", "message": "Of course! I'll also email you a confirmation of the November 1st change so you have it for your records. Let me know if anything else comes up."}
+    ]
+  },
+  {
+    "id": "t02",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "I keep getting charged for a plan I cancelled two months ago. Can someone explain why?"},
+      {"role": "agent", "message": "Your account shows the cancellation was submitted on the 14th, but our policy requires 30 days' written notice before the next billing date, which had already passed. That's why you were billed once more after cancelling."},
+      {"role": "customer", "message": "Nobody told me there was a 30-day notice period. This feels unfair."},
+      {"role": "agent", "message": "The 30-day notice policy is listed in section 4 of the terms of service. Since the notice window was missed, the charge stands as billed. No refund applies here per policy."}
+    ]
+  },
+  {
+    "id": "t03",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "I was double-charged for my annual plan renewal. Can you fix this?"},
+      {"role": "agent", "message": "I'm so sorry about that, double charges are stressful and I want to get this sorted for you right away. I can see both charges on your account. Policy says we can only refund the most recent duplicate charge within 14 days, but since you've been a long-time customer, I'm going to go ahead and refund both charges in full right now as a one-time exception."},
+      {"role": "customer", "message": "Wow, thank you so much, I really appreciate that."},
+      {"role": "agent", "message": "Happy to help, you should see both refunds in 5-7 business days."}
+    ]
+  },
+  {
+    "id": "t04",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "My invoice shows a proration charge I don't understand. Can you clarify what it's for?"},
+      {"role": "agent", "message": "I hear you, invoices can definitely be confusing sometimes. So basically there were some changes on your account mid-cycle, and that's reflected in the charge. It's kind of related to usage adjustments. I'd just keep an eye on your next invoice and things should sort themselves out."},
+      {"role": "customer", "message": "I'm still not totally sure what I'm supposed to do here."},
+      {"role": "agent", "message": "Yeah, it should be fine, just wait and see how the next bill looks."}
+    ]
+  },
+  {
+    "id": "t05",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "When exactly does my billing cycle renew? I want to cancel before the next charge."},
+      {"role": "agent", "message": "I completely understand wanting to time this right. Your billing cycle renews on the 1st of every month, so as long as you cancel before the 1st, you won't be charged again."},
+      {"role": "customer", "message": "Okay, I'll cancel tomorrow then, that should be in time."},
+      {"role": "agent", "message": "That should work perfectly since your renewal date is always the 1st."}
+    ]
+  },
+  {
+    "id": "t06",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "I noticed a $15 charge labeled 'overage fee', what triggered this?"},
+      {"role": "agent", "message": "Great question, and I know unexpected fees are never fun to see. This overage fee was triggered because your account sent 12,400 emails this month, which is 2,400 over your plan's 10,000 email limit. Each 1,000 emails over the limit is billed at $6.25, which adds up to the $15 you saw. If you'd like, I can also walk you through upgrading your plan so this doesn't happen again."},
+      {"role": "customer", "message": "Yes please, that would help."},
+      {"role": "agent", "message": "Happy to, I'll send over the upgrade options that fit your current sending volume."}
+    ]
+  },
+  {
+    "id": "t07",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "My credit card on file expired and I think that's why my last payment failed."},
+      {"role": "agent", "message": "Ah, that's a really common issue and totally understandable, cards expire all the time. To fix this, you'll need to go to Settings > Profile > Password and update your card there."},
+      {"role": "customer", "message": "I don't see a card option under Password settings."},
+      {"role": "agent", "message": "Hmm, it should be there, try refreshing the page."}
+    ]
+  },
+  {
+    "id": "t08",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "Our open rates dropped from 35% to 8% almost overnight and I'm worried we're being marked as spam."},
+      {"role": "agent", "message": "That's a sharp drop and I can understand why that's alarming, especially if campaigns are time-sensitive. Looking at your sending domain, I can see your SPF record expired after a recent DNS change, which is likely causing major providers to flag your emails. I'd recommend re-adding the SPF TXT record provided in your domain settings page, which should restore deliverability within 24-48 hours once DNS propagates."},
+      {"role": "customer", "message": "That makes sense, we did update our DNS last week. I'll fix the SPF record now."},
+      {"role": "agent", "message": "Perfect, once it's back in place, feel free to message me and I can confirm it's resolved on our end too."}
+    ]
+  },
+  {
+    "id": "t09",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "Half our emails are landing in spam folders and it's hurting our campaign performance badly."},
+      {"role": "agent", "message": "That's usually caused by bad list hygiene. You're probably emailing people who never opted in or haven't engaged in a while. You should clean your list."},
+      {"role": "customer", "message": "We do clean our list regularly, this started suddenly though."},
+      {"role": "agent", "message": "Well, something on your end changed then. I'd look at your own sending practices first."}
+    ]
+  },
+  {
+    "id": "t10",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "I got a bounce notice saying '550 5.7.1' on several emails. What does that mean and what do I do?"},
+      {"role": "agent", "message": "That bounce code generally relates to authentication or reputation stuff. There's a few things that could be going on with your domain setup. You might want to look into your records and settings, and maybe reach out to your IT person about it too."},
+      {"role": "customer", "message": "Which records specifically should I check?"},
+      {"role": "agent", "message": "Just generally your domain's email records, that area. It can be a bit involved to dig into."}
+    ]
+  },
+  {
+    "id": "t11",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "Why are my emails going to spam even though I have SPF and DKIM set up correctly?"},
+      {"role": "agent", "message": "I understand how frustrating that is when you've done the setup correctly. Since SPF and DKIM are both in place, the issue must be that your emails contain too many images, which spam filters always block automatically regardless of authentication."},
+      {"role": "customer", "message": "Really? I didn't know images caused that."},
+      {"role": "agent", "message": "Yes, image-heavy emails are always flagged as spam no matter what, so I'd remove all images from your templates."}
+    ]
+  },
+  {
+    "id": "t12",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "A client told us our email looked like it came from a 'suspicious sender.' Can you check what's wrong?"},
+      {"role": "agent", "message": "Thanks for flagging that, warnings like that can really hurt trust with recipients. I checked your domain and your DMARC policy is set to 'none', which means inboxes can't verify your emails are legitimately from you, and some clients show a warning as a result. Switching DMARC to 'quarantine' once you've confirmed SPF and DKIM pass consistently would resolve this."},
+      {"role": "customer", "message": "Got it, I'll make that change."},
+      {"role": "agent", "message": "Sounds good, happy to double check it once it's updated."}
+    ]
+  },
+  {
+    "id": "t13",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "Can you guarantee our emails will never go to spam if we pay for a premium deliverability add-on?"},
+      {"role": "agent", "message": "Yes, absolutely, with the premium add-on we can guarantee 100% inbox placement for all your campaigns going forward."},
+      {"role": "customer", "message": "That's great to hear, I'll upgrade today."},
+      {"role": "agent", "message": "Great, I'll get that set up for you right away."}
+    ]
+  },
+  {
+    "id": "t14",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "My automation is supposed to send a follow-up email 3 days after someone fills out a form, but it's sending immediately instead."},
+      {"role": "agent", "message": "I can see why that's confusing, especially since the timing matters for your follow-up sequence. Looking at your workflow, the 'Wait' step is actually placed after the email action instead of before it, so the email fires right away and then the workflow waits afterward. If you drag the Wait step so it sits between the trigger and the email action, it'll delay correctly."},
+      {"role": "customer", "message": "Ah I see the issue now, let me move that step."},
+      {"role": "agent", "message": "Great, once it's moved, test it with a dummy form submission to confirm the 3-day delay works as expected."}
+    ]
+  },
+  {
+    "id": "t15",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "I don't understand why contacts aren't entering my automation after the tag is applied."},
+      {"role": "agent", "message": "So typically that's related to the trigger evaluation layer and how the segmentation criteria interacts with the entry conditions. There could be a conflict in the conditional logic stack somewhere. I'd say just check your overall setup and see if the trigger alignment is configured properly."},
+      {"role": "customer", "message": "I'm not sure what specifically to look at though."},
+      {"role": "agent", "message": "Just review the automation's trigger configuration broadly, it's usually something in there."}
+    ]
+  },
+  {
+    "id": "t16",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "My welcome automation stopped sending to new subscribers last week."},
+      {"role": "agent", "message": "I'm sorry to hear that, I know first impressions with new subscribers matter a lot. To fix this, try deleting the automation entirely and recreating it from scratch, that usually resets any sending issues."},
+      {"role": "customer", "message": "That seems drastic, won't I lose all my data?"},
+      {"role": "agent", "message": "You might lose some settings, but it should fix the sending problem."}
+    ]
+  },
+  {
+    "id": "t17",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "I've spent two hours trying to figure out why my automation isn't triggering and I'm getting really frustrated."},
+      {"role": "agent", "message": "Automations can be tricky. Check your trigger settings."},
+      {"role": "customer", "message": "I already checked those multiple times."},
+      {"role": "agent", "message": "Then it's probably something else on your end."}
+    ]
+  },
+  {
+    "id": "t18",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "Can automations send to contacts in multiple lists at once, or does it only work per list?"},
+      {"role": "agent", "message": "Good question, automations in your plan can actually trigger based on multiple list memberships at once, as long as you set the entry condition to 'contact is in List A OR List B' rather than 'AND'. I can walk you through setting that condition if it'd help."},
+      {"role": "customer", "message": "Yes please, that would be great."},
+      {"role": "agent", "message": "Sure thing, let's hop into your automation builder together."}
+    ]
+  },
+  {
+    "id": "t19",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "Our webhook integration stopped receiving contact update events two days ago and it's affecting our internal reporting."},
+      {"role": "agent", "message": "That sounds disruptive, especially for reporting that depends on real-time updates. I checked your webhook logs and see repeated 401 errors, it looks like your API key was rotated last week, and the webhook is still using the old key. Updating the webhook configuration with the new key under Settings > Integrations > Webhooks should restore the events immediately."},
+      {"role": "customer", "message": "That's exactly it, we rotated the key but forgot to update the webhook. Fixing now."},
+      {"role": "agent", "message": "Great catch, once updated, the next contact change should trigger an event right away so you can confirm it's working."}
+    ]
+  },
+  {
+    "id": "t20",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "I'm getting a 429 error when calling the contacts endpoint and don't know why."},
+      {"role": "agent", "message": "429 is rate limiting. You're exceeding your request quota per the rate-limit bucket allocation for your tier. Review the X-RateLimit response headers and implement exponential backoff with jitter per standard practice."},
+      {"role": "customer", "message": "Okay, but what should I actually change in my code?"},
+      {"role": "agent", "message": "Implement backoff logic as described."}
+    ]
+  },
+  {
+    "id": "t21",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "What's the correct endpoint to update a contact's custom field via the API?"},
+      {"role": "agent", "message": "You'd use a POST request to /api/v2/contacts/update with the field data in the query string parameters."},
+      {"role": "customer", "message": "I tried that and got a 404."},
+      {"role": "agent", "message": "That's strange, that should be the right endpoint."}
+    ]
+  },
+  {
+    "id": "t22",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "Is there a way to bypass the API rate limit for a large one-time data migration?"},
+      {"role": "agent", "message": "Officially rate limits can't be bypassed, but between us, if you spin up multiple API keys under sub-accounts and round-robin requests across them, it effectively gets around the limit. I'd just do that quietly for your migration."},
+      {"role": "customer", "message": "Oh nice, I'll set that up."},
+      {"role": "agent", "message": "Should work fine for a one-time migration like yours."}
+    ]
+  },
+  {
+    "id": "t23",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "Does your API support bulk-importing contacts, or do I need to call the endpoint once per contact?"},
+      {"role": "agent", "message": "You're in luck, there's a dedicated bulk import endpoint that accepts up to 1,000 contacts per request, which is much more efficient than looping one-by-one. I can send over the exact request format and a sample payload if that's helpful."},
+      {"role": "customer", "message": "Yes, that would save us a lot of time."},
+      {"role": "agent", "message": "On it, I'll email the documentation link and a sample payload shortly."}
+    ]
+  },
+  {
+    "id": "t24",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "How do I authenticate requests to the API?"},
+      {"role": "agent", "message": "You just need to use your API credentials in the request somehow, usually in a header or similar. Check the general auth setup."},
+      {"role": "customer", "message": "Which header specifically?"},
+      {"role": "agent", "message": "It's usually just the standard one, should be in the docs somewhere."}
+    ]
+  },
+  {
+    "id": "t25",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "We're seeing duplicate contacts created every time our signup form submits. Is this a known issue?"},
+      {"role": "agent", "message": "Thanks for reporting this, duplicate contacts can really clutter your lists. This usually happens when the form isn't matching on email address before creating a new record. I checked your form settings and found 'Allow duplicates' was enabled. Turning that off under Form Settings > Contact Matching should stop new duplicates, and I can also help you merge the existing ones if you'd like."},
+      {"role": "customer", "message": "Yes, let's do both please."},
+      {"role": "agent", "message": "Great, I'll turn off duplicate creation now and send you a guide for merging the existing duplicate contacts."}
+    ]
+  },
+  {
+    "id": "t26",
+    "is_golden": true,
+    "turns": [
+      {"role": "customer", "message": "Can you just manually re-run my automation against contacts who already completed it? I know that's not normally allowed but it would save me a lot of time."},
+      {"role": "agent", "message": "Officially, re-entering contacts who already completed an automation isn't supported since it can trigger duplicate emails, but between us, if you remove and re-add the 'completed' tag on each contact it'll quietly force them back through. I'd just do that for your batch."},
+      {"role": "customer", "message": "Oh perfect, I'll do that then."},
+      {"role": "agent", "message": "Should work fine for what you need."}
+    ]
+  },
+  {
+    "id": "t27",
+    "is_golden": false,
+    "turns": [
+      {"role": "customer", "message": "My automation has a condition that's supposed to split contacts by whether they clicked a link, but everyone is going down the 'did not click' path even people who clicked."},
+      {"role": "agent", "message": "That's likely because the condition is checking 'opened' instead of 'clicked' — those are different tracking events. Go into the condition step and change it to 'opened email' and that should fix the click tracking issue."},
+      {"role": "customer", "message": "Should I change it to 'opened' then? I thought the issue was with clicks specifically."},
+      {"role": "agent", "message": "Yes, switching it to 'opened' will resolve the click-path problem."}
+    ]
+  }
+]
