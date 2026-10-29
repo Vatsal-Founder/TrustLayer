@@ -1,23 +1,21 @@
 # Scorecard Trust Layer
 
-A small demo built while applying for the Senior Product Engineer role at [Solidroad](https://www.solidroad.com). Solidroad scores customer support conversations against a rubric, flags gaps, and runs AI roleplay simulations to recertify agents — confirmed from their site and nine published customer case studies (Ryanair, Crypto.com, ActiveCampaign, and others).
-
-Every one of those case studies reports a business metric (CSAT, AHT, NPS) that implicitly depends on the AI scorer being right. None of them show how that scoring is validated, monitored for drift, or gated when the model is uncertain. This project rebuilds the core loop — **transcript → LLM score → gap → roleplay simulation** — and wraps it in the trust layer that loop depends on but that nothing public shows: **consistency**, **calibration**, and **drift** checks.
+A small demo built while applying for the Senior Product Engineer role at [Solidroad](https://www.solidroad.com). Solidroad scores support conversations against a rubric, flags gaps, and runs AI roleplay simulations to recertify agents. This project rebuilds that core loop — **transcript → LLM score → gap → roleplay simulation** — and adds the trust layer that loop depends on: **consistency**, **calibration**, and **drift** checks on the scorer itself.
 
 ## The three checks, in one sentence each
 
 - **Consistency** — does the model agree with itself? Scores the same transcript multiple times and flags a dimension as low-confidence if the scores disagree.
-- **Calibration** — is the model actually *right*, not just consistent? Compares its scores against a small set of tickets a human (me) hand-labeled.
-- **Drift** — did a prompt or model change just quietly make things worse? Re-runs the hand-labeled set after any change and flags a regression against the last known-good run.
+- **Calibration** — is the model actually *right*? Compares its scores against a small set of tickets I hand-labeled.
+- **Drift** — did a prompt or model change just make things worse? Re-runs the hand-labeled set after any change and flags a regression against the last run.
 
-None of these improve the model itself — there's no fine-tuning here. They decide whether a given score should be trusted automatically or routed to a human, and they catch a regression before it ships, the same way a test suite doesn't make your code better but tells you when a change broke something.
+None of these improve the model — there's no fine-tuning here. They decide whether a score should be trusted automatically or routed to a human, and catch a regression before it ships, the same way a test suite doesn't make code better but tells you when a change broke something.
 
-## Architecture
+## Stack
 
-- **Backend**: Python + FastAPI, laid out as a standard `src/` package. All LLM calls go through LangChain (`ChatOpenAI` + `.with_structured_output`) — used narrowly as a model wrapper, not for chains or agents, so every prompt is a single visible call in `scorer.py` / `simulation.py`, not buried in framework internals.
-- **Frontend**: Next.js + TypeScript, matching the stack named in Solidroad's own job post.
-- **Storage**: SQLite, no ORM — plain `sqlite3` with a schema in `db.py`.
-- **Data**: 27 synthetic support tickets (CRM/marketing-automation domain) I authored myself, formatted like a Zendesk/Intercom export, spread evenly across 4 topics (billing, deliverability, automation workflows, API/integrations). 16 are the "golden set" — tickets I hand-scored to use as the calibration answer key. No real customer data is used anywhere.
+- **Backend**: Python + FastAPI, `src/` package layout. LLM calls go through LangChain (`ChatOpenAI` + `.with_structured_output`) — used only as a model wrapper, not chains/agents, so every prompt is a single visible call in `scorer.py` / `simulation.py`.
+- **Frontend**: Next.js + TypeScript.
+- **Storage**: SQLite, no ORM.
+- **Data**: 27 synthetic CRM/marketing-automation support tickets, spread across 4 topics (billing, deliverability, automation workflows, API/integrations). 16 are hand-scored as the golden set. No real customer data.
 
 ```
 app.py                                    root entrypoint: `uvicorn app:app`
@@ -26,20 +24,17 @@ src/scorecard_trust_layer/
   main.py           FastAPI app, CORS, route registration
   config.py         env loading, model names, thresholds
   db.py             sqlite3 connection + schema
-  rubric.py         the 4 scoring dimensions (empathy, accuracy, policy adherence, clarity)
+  rubric.py         the 4 scoring dimensions
   llm.py            LangChain model setup (primary + a cheaper model)
   scorer.py         one LLM call: score a transcript against the rubric
-  simulation.py     generates a roleplay scenario for a flagged gap, runs the chat, re-scores it
+  simulation.py     generates a roleplay scenario for a flagged gap, runs it, re-scores it
   seed.py           loads data/transcripts.json into SQLite on first run
-  trust/            the three checks, grouped together:
-    consistency.py    runs the scorer N times on one transcript, measures agreement with itself
-    calibration.py    runs the scorer against the golden set, measures error vs. human labels
-    drift.py          diffs a calibration run against the previous one, flags regressions
+  trust/            consistency.py, calibration.py, drift.py
   routes/           FastAPI endpoints, one file per concern
 frontend/
   app/page.tsx              pick a ticket, score it, see citations + confidence
   app/golden-set/page.tsx   hand-label the golden tickets
-  app/reliability/page.tsx  calibration history, regression flags, the MAE chart
+  app/reliability/page.tsx  calibration history, regression flags, MAE chart
   app/simulate/[gapId]/     the roleplay chat for a flagged gap
   app/dashboard/page.tsx    score and simulation history
 ```
@@ -65,19 +60,15 @@ Then open `http://localhost:3000`. The database seeds itself from `data/transcri
 
 ## Suggested walkthrough
 
-1. **Score a ticket** on the home page — one that has an obvious flaw (e.g. `t09`, a dismissive deliverability reply) and watch it get flagged as a gap.
-2. **Label the golden set** — go hand-score the 16 golden tickets. This is the one step that can't be faked; it's your own judgment becoming the answer key.
+1. **Score a ticket** on the home page (e.g. `t09`) and watch it get flagged as a gap.
+2. **Label the golden set** — hand-score the 16 golden tickets. This is the one step that can't be faked.
 3. **Run calibration** on the Reliability page — see how far the LLM's scores are from yours, per dimension.
-4. **Run calibration again with the cheap-model toggle** — this deliberately swaps in a weaker model to simulate a real-world mistake (swapping models to save cost) and shows the drift check catching the regression.
-5. **Run a simulation** from a flagged gap — chat with the generated AI customer persona, finish it, and see whether it would recertify.
-6. **Check the dashboard** — score and simulation history across everything you just did.
+4. **Run calibration again with the cheap-model toggle** — simulates swapping in a weaker model and shows the drift check catching the regression.
+5. **Run a simulation** from a flagged gap — chat with the AI customer persona, finish it, see whether it recertifies.
+6. **Check the dashboard** — score and simulation history across everything above.
 
-## Known limitations (stated honestly, not hidden)
+## Known limitations
 
-- The golden set's "ground truth" is my own hand labels, not a trained QA reviewer's. Calibration is only as good as that answer key — in a real company this would come from a senior QA lead's judgment, not one engineer.
-- No automated test suite. This is a manually-run demo project, verified by hand during development.
-- No auth, no multi-user support, single SQLite file. Not built for production load.
-
-## What I'd build next (not built, just scoped)
-
-Solidroad's own coaching dashboard already shows whether a gap affects one agent or the whole team — a simple aggregate. The next step I'd take is **root-cause clustering**: instead of counting *how many* agents fail a dimension, cluster the *content* of the failures (via embeddings) to find whether a gap is actually a training problem (one agent, many ticket types) or a systemic one (many agents, one ticket type) — which usually means a policy or knowledge-base gap, not a coaching gap. That's a materially different fix, and surfacing it is a bigger win for the buyer persona in Solidroad's own case studies (a quality program lead reporting to leadership) than another per-agent score.
+- The golden set's "ground truth" is my own hand labels, not a trained QA reviewer's.
+- No automated test suite — manually verified during development.
+- No auth, no multi-user, single SQLite file. Not built for production load.
