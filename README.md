@@ -61,14 +61,14 @@ Then open `http://localhost:3000`. The database seeds itself from `data/transcri
 ## Suggested walkthrough
 
 1. **Score a ticket** on the home page (e.g. `t09`) and watch it get flagged as a gap.
-2. **Label the golden set** — hand-score the 16 golden tickets. This is the one step that can't be faked.
+2. **Label the golden set** - hand-score the 16 golden tickets. This is the one step that can't be faked.
 3. **Run calibration** on the Reliability page — see how far the LLM's scores are from yours, per dimension.
-4. **Run calibration again with the cheap-model toggle** — simulates swapping in a weaker model and shows the drift check catching the regression.
+4. **Run calibration again with the cheap-model toggle** - simulates swapping in a weaker model and shows the drift check catching the regression.
 5. **Run a simulation** from a flagged gap — chat with the AI customer persona, finish it, see whether it recertifies.
-6. **Check the dashboard** — score and simulation history across everything above.
+6. **Check the dashboard** - score and simulation history across everything above.
 
 ## Known limitations
 
 - The golden set's "ground truth" is my own hand labels, not a trained QA reviewer's.
-- No automated test suite — manually verified during development.
+- No automated test suite - manually verified during development.
 - No auth, no multi-user, single SQLite file. Not built for production load.
