@@ -4,9 +4,9 @@ A small demo that scores support conversations against a rubric, flags gaps, and
 
 ## The three checks, in one sentence each
 
-- **Consistency** — does the model agree with itself? Scores the same transcript multiple times and flags a dimension as low-confidence if the scores disagree.
-- **Calibration** — is the model actually *right*? Compares its scores against a small set of tickets I hand-labeled.
-- **Drift** — did a prompt or model change just make things worse? Re-runs the hand-labeled set after any change and flags a regression against the last run.
+- **Consistency** : does the model agree with itself? Scores the same transcript multiple times and flags a dimension as low-confidence if the scores disagree.
+- **Calibration** : is the model actually *right*? Compares its scores against a small set of tickets I hand-labeled.
+- **Drift** : did a prompt or model change just make things worse? Re-runs the hand-labeled set after any change and flags a regression against the last run.
 
 None of these improve the model — there's no fine-tuning here. They decide whether a score should be trusted automatically or routed to a human, and catch a regression before it ships, the same way a test suite doesn't make code better but tells you when a change broke something.
 
