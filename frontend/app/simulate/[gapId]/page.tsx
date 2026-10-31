@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 
 import { api, DimensionKey } from "@/lib/api";
@@ -31,6 +31,39 @@ function SimulateContent() {
     null
   );
   const [loading, setLoading] = useState(false);
+  const [listening, setListening] = useState(false);
+  const [voiceSupported, setVoiceSupported] = useState(false);
+  const recognitionRef = useRef<any>(null);
+
+  useEffect(() => {
+    const SpeechRecognitionImpl = (window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition;
+    if (!SpeechRecognitionImpl) return;
+
+    const recognition = new SpeechRecognitionImpl();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    recognition.onresult = (e: any) => {
+      const transcript = e.results[0][0].transcript;
+      setInput((prev) => (prev ? `${prev} ${transcript}` : transcript));
+    };
+    recognition.onend = () => setListening(false);
+    recognition.onerror = () => setListening(false);
+
+    recognitionRef.current = recognition;
+    setVoiceSupported(true);
+  }, []);
+
+  function toggleTalk() {
+    if (!recognitionRef.current) return;
+    if (listening) {
+      recognitionRef.current.stop();
+      setListening(false);
+    } else {
+      recognitionRef.current.start();
+      setListening(true);
+    }
+  }
 
   async function handleStart() {
     setLoading(true);
@@ -93,6 +126,16 @@ function SimulateContent() {
               <button className="btn" onClick={handleSend} disabled={loading}>
                 Send
               </button>
+              {voiceSupported && (
+                <button
+                  type="button"
+                  className={`btn-secondary ${listening ? "talk-active" : ""}`}
+                  onClick={toggleTalk}
+                  disabled={loading}
+                >
+                  {listening ? "Listening..." : "Talk"}
+                </button>
+              )}
               <button
                 className="btn-secondary"
                 onClick={handleFinish}

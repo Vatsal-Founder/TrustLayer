@@ -589,6 +589,12 @@ h3 {
   outline-offset: -1px;
 }
 
+.talk-active {
+  background: var(--danger-tint);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
 .result-banner {
   padding: 0.7rem 1rem;
   border-radius: var(--radius);
