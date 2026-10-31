@@ -1,6 +1,6 @@
 # Scorecard Trust Layer
 
-A small demo that scores support conversations against a rubric, flags gaps, and runs AI roleplay simulations to recertify agents. This project rebuilds that core loop — **transcript → LLM score → gap → roleplay simulation** — and adds the trust layer that loop depends on: **consistency**, **calibration**, and **drift** checks on the scorer itself.
+A demo that scores support conversations against a rubric, flags gaps, and runs AI roleplay simulations to recertify agents. This project rebuilds that core loop — **transcript → LLM score → gap → roleplay simulation** — and adds the trust layer that loop depends on: **consistency**, **calibration**, and **drift** checks on the scorer itself.
 
 ## The three checks, in one sentence each
 
