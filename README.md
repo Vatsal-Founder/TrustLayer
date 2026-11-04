@@ -2,6 +2,8 @@
 
 A demo that scores support conversations against a rubric, flags gaps, and runs AI roleplay simulations to recertify agents. This project rebuilds that core loop — **transcript → LLM score → gap → roleplay simulation** — and adds the trust layer that loop depends on: **consistency**, **calibration**, and **drift** checks on the scorer itself.
 
+**[▶ Watch the 5-minute walkthrough](https://www.loom.com/share/516562f7b2cb449d9139977fbbf7b4f0)**
+
 ## The three checks, in one sentence each
 
 - **Consistency** : does the model agree with itself? Scores the same transcript multiple times and flags a dimension as low-confidence if the scores disagree.

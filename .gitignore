@@ -5,3 +5,4 @@ trust_layer.db
 .venv/
 node_modules/
 .next/
+*.mp4
